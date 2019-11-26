@@ -8,6 +8,10 @@ namespace MidTermLibrary
 {
     class Validator : Book
     {
-        Book.T
+        
+        public static void Hello()
+        {
+            
+        }
     }
 }
