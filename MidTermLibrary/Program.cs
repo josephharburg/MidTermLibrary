@@ -10,6 +10,14 @@ namespace MidTermLibrary
     {
         static void Main(string[] args)
         {
+            List<Book> bookList = Book.TxtToBook();
+
+            bookList.Add(new Book("La", "ka", true));
+
+            Book.BookToTxtFile(bookList);
+
+
+
         }
     }
 }

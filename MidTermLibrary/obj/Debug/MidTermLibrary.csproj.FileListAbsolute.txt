@@ -1,0 +1,6 @@
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\obj\Debug\MidTermLibrary.csprojAssemblyReference.cache
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\bin\Debug\MidTermLibrary.exe.config
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\bin\Debug\MidTermLibrary.exe
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\bin\Debug\MidTermLibrary.pdb
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\obj\Debug\MidTermLibrary.exe
+C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\obj\Debug\MidTermLibrary.pdb
