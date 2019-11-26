@@ -11,6 +11,7 @@ namespace MidTermLibrary
         static void Main(string[] args)
         {
             //gil was totes here and did a lot to the code
+            //Randy was here first
         }
     }
 }
