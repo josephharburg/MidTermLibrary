@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MidTermLibrary
 {
-    class Search
+    class Search : Book
     {
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MidTermLibrary
 {
-    class Validator
+    class Validator : Book
     {
+        Book.T
     }
 }
