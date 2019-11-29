@@ -8,5 +8,9 @@ namespace MidTermLibrary
 {
     class Search : Book
     {
+        public static void call(Book book)
+        {
+            Console.WriteLine(book.Author);
+        }
     }
 }

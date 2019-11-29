@@ -11,7 +11,7 @@ namespace MidTermLibrary
     {
         public string title;
         public string author;
-        public bool available;
+        public bool status;
         public string dueDate;
         public DateTime now = DateTime.Now;
 
@@ -27,10 +27,10 @@ namespace MidTermLibrary
             set { author = value; }
         }
 
-        public bool Available
+        public bool Status
         {
-            get { return available; }
-            set { available = value; }
+            get { return status; }
+            set { status = value; }
         }
 
         public string DueDate
@@ -48,17 +48,18 @@ namespace MidTermLibrary
         {
             Title = title;
             Author = author;
-            Available = available;
+            Status = available;
         }
 
         public Book(string title, string author, bool available, string dueDate)
         {
             Title = title;
             Author = author;
-            Available = available;
+            Status = available;
             DueDate = dueDate;
         }
 
+        //
         public static void BookToTxtFile(List<Book> books)
         {
             StreamWriter bks = new StreamWriter(@"C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\booklist.txt");
@@ -66,19 +67,19 @@ namespace MidTermLibrary
             foreach (Book book in books)
             {
                 string csv = "";
-                if (book.Available == false)
+                if (book.Status == false)
                 {
-                    csv = $"{book.Title},{book.Author},{book.Available},{book.DueDate}";
+                    csv = $"{book.Title},{book.Author},{book.Status},{book.DueDate}";
                 }
-                else if (book.Available == true)
+                else if (book.Status == true)
                 {
-                    csv = $"{book.Title},{book.Author},{book.Available}";
+                    csv = $"{book.Title},{book.Author},{book.Status}";
                 }
                 bks.WriteLine(csv);
             }
             bks.Close();
         }
-
+        //This Method Takes the Textfile 
         public static List<Book> TxtToBook()
         {
             List<Book> tempBookList = new List<Book>();
