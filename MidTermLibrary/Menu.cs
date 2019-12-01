@@ -16,7 +16,7 @@ namespace MidTermLibrary
         //Search by Author?
         //-----Checkout Method
         //Return a Book
-        
+
         public static void DisplayBooks(List<Book> bookList)
         {
             Console.WriteLine($"{"Title",-40}{"Author",-20}Availability\n{"------",-40}{"------",-20}------------");
@@ -55,7 +55,6 @@ namespace MidTermLibrary
             }
         }
 
-
         public static void CheckoutBook(Book book)
         {
 
@@ -84,7 +83,9 @@ namespace MidTermLibrary
         public static void StartMenu()
         {
             Options();
-            int optionInput = int.Parse(Console.ReadLine()); // RANDY TO CREATE VALIDATION HERE feel free to change to string.
+
+            int optionInput = Validator.inputCheck();
+
             while (optionInput != 5)
             {
                 if (optionInput == 1)
@@ -92,19 +93,18 @@ namespace MidTermLibrary
                     #region CALL METHOD to check out book by Author Name
                     Console.WriteLine("Choose a book to check out by the Author's Name.");
 
-                    string userInput = Console.ReadLine(); //RANDY
+                    string reply = Console.ReadLine();
+                    string userInput = Validator.ValidateAuthor(reply, BookList);
 
                     Book myBook = Search.GetBookByAuthorName(userInput);
 
-                    if (myBook != null)
-                    {
-                        Console.WriteLine($"FOUND BOOK: {myBook.Title}");
+                        Console.WriteLine($"FOUND BOOK BY {myBook.Author}: {myBook.Title}");
 
                         if (myBook.Status == 0)  // 0 = not checked out
                         {
 
                             Menu.CheckoutBook(myBook);
-                            Console.WriteLine($"YOU ARE CHECKING OUT: {myBook.Title}.\nThe due date for {myBook.Title} is: {myBook.DueDate}");
+                            Console.WriteLine($"YOU ARE CHECKING OUT: {myBook.Title} by {myBook.Author}\nThe due date for {myBook.Title} is: {myBook.DueDate}");
                             Book.BookToTxtFile(BookList);
                             //Console.WriteLine("The updated Book List is below:\n");
                             //Menu.DisplayBooks(BookList);
@@ -114,19 +114,15 @@ namespace MidTermLibrary
                         {
                             Console.WriteLine($"{myBook.Title} is currently checked out. It is due back on {myBook.DueDate}.");
                         }
-
-                    }
-                    else
-                    {
-                        Console.WriteLine("Could not find book.");
-                    }
+                   
                     #endregion
                 }
                 else if (optionInput == 2)
                 {
                     #region CALL METHOD to GetBookListByKeyword
                     Console.WriteLine("Choose a book to check out by a word or letter in the book's title.");
-                    string bookSearch = Console.ReadLine();
+                    string reply = Console.ReadLine();
+                    string bookSearch = Validator.ValidateTitle(reply, BookList);
                     List<Book> MatchingBooklist = Search.GetBookListByKeyword(bookSearch);
 
                     if (MatchingBooklist != null && MatchingBooklist.Count > 0)
@@ -137,29 +133,28 @@ namespace MidTermLibrary
 
                         foreach (Book b in MatchingBooklist)
                         {
-                            
+
                             if (b.Status == 0)
                             {
                                 Console.WriteLine($"Would you like to check out {b.Title}? yes or no");
-                                string userReply = Console.ReadLine();// Randy to add Validation
+                                string userReply = Console.ReadLine();
+                                userReply = Validator.inputCheck(userReply);
 
-                                if (userReply == "yes")
+
+                                if (userReply == "yes" || userReply == "y")
                                 {
                                     Menu.CheckoutBook(b);
                                     Console.WriteLine($"You are checking out:{b.Title}.\nThe due date for {b.Title} is:{DateTime.Now.AddDays(14).ToString("MM/dd/yyyy")}");
-
-                                    Book.BookToTxtFile(BookList);
+                                    break;
+                                   
 
                                 }
-                                else
+                                else if(userReply == "no" || userReply == "n")
                                 {
-                                    Console.WriteLine($"{b.Title} is already checked out.");
+                                    Console.WriteLine($"ok");
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Could not find book.");
-                            }
+                            Book.BookToTxtFile(BookList);
                             //Console.WriteLine("The updated Book List is below:\n");
                             //Menu.DisplayBooks(BookList);
 
@@ -172,19 +167,18 @@ namespace MidTermLibrary
                 {
                     #region RETURN BOOK
                     Console.WriteLine("Please enter the Title of the book you are returning?");
-                    string bookReturn = Console.ReadLine();//Randy Validations adding later
-                    Book returnBook = Search.GetBookByKeyword(bookReturn);
+                    string bookReturn = Console.ReadLine();
 
-                    if (returnBook != null)
-                    {
-                        Menu.ReturnBook(returnBook);
-                        Book.BookToTxtFile(BookList);
-                        Console.WriteLine($"{returnBook.Title} has been returned.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("That book is not recognized.");
-                    }
+                    string bookReturned = Validator.ValidateTitle(bookReturn, BookList);
+
+                    Book returnBook = Search.GetBookByKeyword(bookReturned);
+
+                    Menu.ReturnBook(returnBook);
+
+                    Book.BookToTxtFile(BookList);
+
+                    Console.WriteLine($"{returnBook.Title} has been returned.");
+
                 }
                 #endregion
                 else if (optionInput == 4)

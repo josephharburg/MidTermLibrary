@@ -18,10 +18,6 @@ namespace MidTermLibrary
 
             //Randy was here first
             
-            
-            
-            
-            
             Menu.StartMenu();
             
         }

@@ -9,7 +9,7 @@ namespace MidTermLibrary
     class Search : Book
     {
         
-        //public static List<Book> BookList = Book.TxtToBook();
+        
         public static Book GetBookByAuthorName(string titleByAuthor)
         {
             foreach (Book b in BookList)
