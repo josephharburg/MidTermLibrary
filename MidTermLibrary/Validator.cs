@@ -9,9 +9,6 @@ namespace MidTermLibrary
     class Validator : Book
     {
         
-        public static void Hello()
-        {
-            
-        }
+        
     }
 }

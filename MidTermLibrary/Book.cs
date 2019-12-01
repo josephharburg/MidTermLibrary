@@ -11,9 +11,9 @@ namespace MidTermLibrary
     {
         public string title;
         public string author;
-        public bool status;
+        public int status;
         public string dueDate;
-        public DateTime now = DateTime.Now;
+        public static List<Book> BookList = Book.TxtToBook();
 
         public string Title
         {
@@ -27,7 +27,7 @@ namespace MidTermLibrary
             set { author = value; }
         }
 
-        public bool Status
+        public int Status
         {
             get { return status; }
             set { status = value; }
@@ -44,18 +44,18 @@ namespace MidTermLibrary
         public Book() { }
 
 
-        public Book(string title, string author, bool available)
+        public Book(string title, string author, int status)
         {
             Title = title;
             Author = author;
-            Status = available;
+            Status = status;
         }
 
-        public Book(string title, string author, bool available, string dueDate)
+        public Book(string title, string author, int status, string dueDate)
         {
             Title = title;
             Author = author;
-            Status = available;
+            Status = status;
             DueDate = dueDate;
         }
 
@@ -67,11 +67,11 @@ namespace MidTermLibrary
             foreach (Book book in books)
             {
                 string csv = "";
-                if (book.Status == false)
+                if (book.Status == 1)
                 {
                     csv = $"{book.Title},{book.Author},{book.Status},{book.DueDate}";
                 }
-                else if (book.Status == true)
+                else if (book.Status == 0)
                 {
                     csv = $"{book.Title},{book.Author},{book.Status}";
                 }
@@ -99,17 +99,21 @@ namespace MidTermLibrary
             foreach (string bk in bkList)
             {
                 string[] bkArray = bk.Split(',');
-                if (bkArray[2] == "False")
+                if (bkArray[2] == "1")
                 {
-                    tempBookList.Add(new Book(bkArray[0], bkArray[1], false, bkArray[3]));
+                    tempBookList.Add(new Book(bkArray[0], bkArray[1], 1, bkArray[3]));
                 }
-                else if (bkArray[2] == "True")
+                else if (bkArray[2] == "0")
                 {
-                    tempBookList.Add(new Book(bkArray[0], bkArray[1], true));
+                    tempBookList.Add(new Book(bkArray[0], bkArray[1], 0));
                 }
             }
             sr.Close();
             return tempBookList;
         }
+
+   
+   
+
     }
 }

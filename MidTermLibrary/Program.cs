@@ -10,16 +10,20 @@ namespace MidTermLibrary
     {
         static void Main(string[] args)
         {
-            Book book = new Book("Little Women", "author", true);
-            Console.WriteLine(book.Title);
-            var Title = "Little Women";
-           
+            //joseph was here last
+
             //gil was totes here and did a lot to the code
-            Search.call(book);
+
             //Gigi lives!
 
             //Randy was here first
-
+            
+            
+            
+            
+            
+            Menu.StartMenu();
+            
         }
     }
 }
