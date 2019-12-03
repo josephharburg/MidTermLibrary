@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Text.RegularExpressions;
 namespace MidTermLibrary
 {
     class Validator : Book
@@ -19,7 +19,7 @@ namespace MidTermLibrary
                 try
                 {
                     input = int.Parse(Console.ReadLine());
-                    if (input == 1 || input == 2 || input == 3 || input == 4 || input == 5)
+                    if (input == 1 || input == 2 || input == 3 || input == 4 || input == 5 || input == 6)
                     {
                         repeat = false;
                     }
@@ -33,22 +33,22 @@ namespace MidTermLibrary
                 catch (FormatException ex)
                 {
                     Console.WriteLine("Please enter a valid input (1-5)");
-                    
+
                 }
                 catch (ArgumentNullException ex)
                 {
                     Console.WriteLine("Please enter a valid input (1-5)");
-                    
+
                 }
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine("Please enter a valid input (1-5)");
-                    
+
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Please enter a valid input (1-5)");
-                    
+
                 }
             }
             return input;
@@ -91,6 +91,30 @@ namespace MidTermLibrary
                     author = Console.ReadLine();
                 }
             }
+            return author;
+        }
+
+        public static string ValidateAuthor()
+        {
+            Regex authorValid = new Regex(@"[A-Za-z\s\.]");
+            string author = "";
+            bool check = false;
+            while (check == false)
+            {
+                author = Console.ReadLine();
+                if(string.IsNullOrEmpty(author))
+                {
+                    Console.WriteLine("Please Enter a proper name.");
+                }
+                else if (!authorValid.IsMatch(author))
+                {
+                    Console.WriteLine("Please Enter a proper name.");
+                }
+                else if (authorValid.IsMatch(author))
+                {
+                    check = true;
+                }
+            } 
             return author;
         }
         //Validates whenever you need to check for title
@@ -177,5 +201,27 @@ namespace MidTermLibrary
             return input;
         }
 
+        public static string ValidateTitle()
+        {
+            string response = "";
+            bool check = false;
+            while (check == false)
+            {
+                response = Console.ReadLine();
+                if (string.IsNullOrEmpty(response))
+                {
+                    Console.WriteLine("Please enter a valid title");
+                    //response = Console.ReadLine();
+                }
+                else
+                {
+                    check = true;
+                }
+            }
+            return response;
+        }
+
     }
+
 }
+
