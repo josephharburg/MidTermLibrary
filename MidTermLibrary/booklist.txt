@@ -6,8 +6,8 @@ Animal Farm,George Orwell,1,12/15/2019
 Time Machine,H.G. Wells,1,12/15/2019
 Crime and Punishment,Fyodor Dostieveski,0
 Hunger Games,Suzanne Collins,0
-Harry Potter and the Sorcerer's Stone,J.K Rowling,0
-Ready Player One,Ernest Cline,0
+Harry Potter and the Sorcerer's Stone,J.K Rowling,1,12/16/2019
+Ready Player One,Ernest Cline,1,12/16/2019
 Little Women,Luisa May Alcott,0
 The Martian,Andy Weir,1,12/15/2019
 Canticle for Leibovitz,Herman Miller,0

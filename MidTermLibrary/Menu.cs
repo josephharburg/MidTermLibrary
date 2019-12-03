@@ -57,7 +57,6 @@ namespace MidTermLibrary
 
         public static void CheckoutBook(Book book)
         {
-
             book.Status = 1;
             book.DueDate = DateTime.Now.AddDays(14).ToString("MM/dd/yyyy");
 
@@ -83,7 +82,6 @@ namespace MidTermLibrary
         public static void StartMenu()
         {
             Options();
-
             int optionInput = Validator.inputCheck();
 
             while (optionInput != 5)

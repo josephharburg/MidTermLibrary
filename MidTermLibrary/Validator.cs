@@ -10,7 +10,6 @@ namespace MidTermLibrary
     {
 
         //Validates user input in beginning of program 
-        //Had to change it a bit to fix an error I was getting.
         public static int inputCheck()
         {
             int input = 0;

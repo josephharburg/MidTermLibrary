@@ -13,7 +13,7 @@ namespace MidTermLibrary
         public string author;
         public int status;
         public string dueDate;
-        public static List<Book> BookList = Book.TxtToBook();
+        public static List<Book> BookList = Book.TxtToBook(); //Creates a Static List
 
         public string Title
         {
@@ -62,7 +62,7 @@ namespace MidTermLibrary
         //
         public static void BookToTxtFile(List<Book> books)
         {
-            StreamWriter bks = new StreamWriter(@"C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\booklist.txt");
+            StreamWriter bks = new StreamWriter(@"..\..\booklist.txt");
 
             foreach (Book book in books)
             {
@@ -86,7 +86,7 @@ namespace MidTermLibrary
 
             List<string> bkList = new List<string>();
 
-            StreamReader sr = new StreamReader(@"C:\Users\josep\source\repos\MidTermLibrary\MidTermLibrary\booklist.txt");
+            StreamReader sr = new StreamReader(@"..\..\booklist.txt");
 
             string line = sr.ReadLine();
 
