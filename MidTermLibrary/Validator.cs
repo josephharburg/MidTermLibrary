@@ -25,29 +25,29 @@ namespace MidTermLibrary
                     }
                     else
                     {
-                        Console.WriteLine("Please enter a valid input (1-5)");
+                        Console.WriteLine("Please enter a valid input (1-6)");
                         input = int.Parse(Console.ReadLine());
                     }
                 }
 
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Please enter a valid input (1-5)");
+                    Console.WriteLine("Please enter a valid input (1-6)");
 
                 }
                 catch (ArgumentNullException ex)
                 {
-                    Console.WriteLine("Please enter a valid input (1-5)");
+                    Console.WriteLine("Please enter a valid input (1-6)");
 
                 }
                 catch (ArgumentException ex)
                 {
-                    Console.WriteLine("Please enter a valid input (1-5)");
+                    Console.WriteLine("Please enter a valid input (1-6)");
 
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Please enter a valid input (1-5)");
+                    Console.WriteLine("Please enter a valid input (1-6)");
 
                 }
             }
