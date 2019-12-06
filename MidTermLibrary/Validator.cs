@@ -93,30 +93,6 @@ namespace MidTermLibrary
             }
             return author;
         }
-
-        public static string ValidateAuthor()
-        {
-            Regex authorValid = new Regex(@"[A-Za-z\s\.]");
-            string author = "";
-            bool check = false;
-            while (check == false)
-            {
-                author = Console.ReadLine();
-                if(string.IsNullOrEmpty(author))
-                {
-                    Console.WriteLine("Please Enter a proper name.");
-                }
-                else if (!authorValid.IsMatch(author))
-                {
-                    Console.WriteLine("Please Enter a proper name.");
-                }
-                else if (authorValid.IsMatch(author))
-                {
-                    check = true;
-                }
-            } 
-            return author;
-        }
         //Validates whenever you need to check for title
         public static string ValidateTitle(string title, List<Book> books)
         {
@@ -158,7 +134,7 @@ namespace MidTermLibrary
             }
             return title;
         }
-
+        //Validates user input when there is a yes/no input
         public static string inputCheck(string input)
         {
             bool repeat = true;
@@ -200,7 +176,7 @@ namespace MidTermLibrary
             }
             return input;
         }
-
+        //Validates a title when adding a book
         public static string ValidateTitle()
         {
             string response = "";
@@ -219,6 +195,30 @@ namespace MidTermLibrary
                 }
             }
             return response;
+        }
+        //Validates an author when adding a book
+        public static string ValidateAuthor()
+        {
+            Regex authorValid = new Regex(@"[A-Za-z\s\.]");
+            string author = "";
+            bool check = false;
+            while (check == false)
+            {
+                author = Console.ReadLine();
+                if(string.IsNullOrEmpty(author))
+                {
+                    Console.WriteLine("Please Enter a proper name.");
+                }
+                else if (!authorValid.IsMatch(author))
+                {
+                    Console.WriteLine("Please Enter a proper name.");
+                }
+                else if (authorValid.IsMatch(author))
+                {
+                    check = true;
+                }
+            } 
+            return author;
         }
 
     }

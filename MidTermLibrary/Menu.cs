@@ -8,80 +8,7 @@ namespace MidTermLibrary
 {
     class Menu : Book
     {
-        //Main Menu
-        //Display List?
-        //-----Checkout Method
-        //Search by Keyword?
-        //-----Checkout Method
-        //Search by Author?
-        //-----Checkout Method
-        //Return a Book
-
-        public static void DisplayBooks(List<Book> bookList)
-        {
-            
-            Console.WriteLine($"{"Title",-40}{"Author",-25}{"Availability", -20} {"Due Date", -20}\n------------------------------------------------------------------------------------------------");
-            foreach (Book book in bookList)
-            {
-                string available = "";
-                string tooLong = "";
-                if (book.Status == 0)
-                {
-                    available = "On Shelf";
-                }
-                else if (book.Status == 1)
-                {
-                    available = "Checked Out";
-                }
-
-                if (book.Title.Length > 25 && available == "On Shelf")
-                {
-                    tooLong = $"{book.Title.Substring(0, 24)}...";
-                    Console.WriteLine($"{tooLong,-40}{book.Author,-25}{available, -20}");
-                }
-                else if (book.Title.Length > 25 && available == "Checked Out")
-                {
-                    tooLong = $"{book.Title.Substring(0, 24)}...";
-                    Console.WriteLine($"{tooLong,-40}{book.Author,-25}{available, -20}{book.DueDate, -20}");
-                }
-                else if (available == "Checked Out")
-                {
-                    Console.WriteLine($"{book.Title,-40}{book.Author,-25}{available, -20}{book.DueDate, -20}");
-                }
-                else
-                {
-                    Console.WriteLine($"{book.Title,-40}{book.Author,-25}{available, -20}");
-
-                }
-            }
-        }
-
-        public static void CheckoutBook(Book book)
-        {
-            book.Status = 1;
-            book.DueDate = DateTime.Now.AddDays(14).ToString("MM/dd/yyyy");
-
-        }
-
-        public static void ReturnBook(Book book)
-        {
-            book.Status = 0;
-            book.DueDate = null;
-
-        }
-
-        public static void Options()
-        {
-            BookList.Sort((a,b)=>a.Title.CompareTo(b.Title));
-            Console.WriteLine("\nWelcome to the library. Please choose a number from the following menu");
-            Console.WriteLine("1. Search for a book to check out by AUTHOR NAME.");
-            Console.WriteLine("2. Search for a book to check out by a WORD IN THE TITLE.");
-            Console.WriteLine("3. Return a book.");
-            Console.WriteLine("4. Display Current Book List.");
-            Console.WriteLine("5. Donate a Book.");
-            Console.WriteLine("6. Exit the library app");
-        }
-
+        //Opens up the starting menu of the program
         public static void StartMenu()
         {
             Options();
@@ -92,44 +19,47 @@ namespace MidTermLibrary
                 if (optionInput == 1)
                 {
                     #region CALL METHOD to check out book by Author Name
-                    Console.WriteLine("Choose a book to check out by the Author's Name.");
-
+                    Console.WriteLine("Search for a book to check out by author's name");
                     string reply = Console.ReadLine();
                     string userInput = Validator.ValidateAuthor(reply, BookList);
+                    List<Book> MatchingBooklist = Search.GetBookByAuthorName(userInput);
 
-                    Book myBook = Search.GetBookByAuthorName(userInput);
-
-                    Console.WriteLine($"\nFOUND BOOK BY {myBook.Author}: {myBook.Title}");
-
-
-                    if (myBook.Status == 0)  // 0 = not checked out
+                    if (MatchingBooklist != null && MatchingBooklist.Count > 0)
                     {
-                        Console.WriteLine($"\nDo you want to check out {myBook.Title} by {myBook.Author}?");
+                        Console.WriteLine($"\nBooks matching your search term '{userInput}' are listed below:\n");
 
-                        string wantCheckOut = Validator.inputCheck(Console.ReadLine());
-                        if (wantCheckOut == "yes")
+                        DisplayBooks(MatchingBooklist);
+
+                        foreach (Book b in MatchingBooklist)
                         {
-                            Menu.CheckoutBook(myBook);
-                            Console.WriteLine($"\nYOU ARE CHECKING OUT: {myBook.Title} by {myBook.Author}\nThe due date for {myBook.Title} is: {myBook.DueDate}");
+
+                            if (b.Status == 0)
+                            {
+                                Console.WriteLine($"\nWould you like to check out {b.Title}? yes or no");
+                                string userReply = Console.ReadLine();
+                                userReply = Validator.inputCheck(userReply);
+
+                                if (userReply == "yes" || userReply == "y")
+                                {
+                                    Menu.CheckoutBook(b);
+                                    Console.WriteLine($"\nYou are checking out: {b.Title}.\nThe due date for {b.Title} is: {DateTime.Now.AddDays(14).ToString("MM/dd/yyyy")}");
+                                }
+                                else if (userReply == "no" || userReply == "n")
+                                {
+                                    Console.WriteLine($"\n{b.Title} not checked out.");
+                                }
+                            }
                             Book.BookToTxtFile(BookList);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Ok");
+
                         }
 
                     }
-                    else  //1 = book is already checked out 
-                    {
-                        Console.WriteLine($"\n{myBook.Title} is currently checked out. It is due back on {myBook.DueDate}.");
-                    }
-
                     #endregion
                 }
                 else if (optionInput == 2)
                 {
                     #region CALL METHOD to GetBookListByKeyword
-                    Console.WriteLine("Choose a book to check out by a word or letter in the book's title.");
+                    Console.WriteLine("Search for a book to check out by a word or letter in the book's title.");
                     string reply = Console.ReadLine();
                     string bookSearch = Validator.ValidateTitle(reply, BookList);
                     List<Book> MatchingBooklist = Search.GetBookListByKeyword(bookSearch);
@@ -218,10 +148,73 @@ namespace MidTermLibrary
                 optionInput = Validator.inputCheck();
 
             }
+        }
+        //Displays the options given to the user
+        public static void Options()
+        {
+            BookList.Sort((a,b)=>a.Title.CompareTo(b.Title));
+            Console.WriteLine("\nWelcome to the library. Please choose a number from the following menu");
+            Console.WriteLine("1. Search for a book to check out by AUTHOR NAME.");
+            Console.WriteLine("2. Search for a book to check out by a WORD IN THE TITLE.");
+            Console.WriteLine("3. Return a book.");
+            Console.WriteLine("4. Display Current Book List.");
+            Console.WriteLine("5. Donate a Book.");
+            Console.WriteLine("6. Exit the library app");
+        }
+        //Method that displays the entire library
+        public static void DisplayBooks(List<Book> bookList)
+        {
+            
+            Console.WriteLine($"{"Title",-40}{"Author",-25}{"Availability", -20} {"Due Date", -20}\n------------------------------------------------------------------------------------------------");
+            foreach (Book book in bookList)
+            {
+                string available = "";
+                string tooLong = "";
+                if (book.Status == 0)
+                {
+                    available = "On Shelf";
+                }
+                else if (book.Status == 1)
+                {
+                    available = "Checked Out";
+                }
 
+                if (book.Title.Length > 25 && available == "On Shelf")
+                {
+                    tooLong = $"{book.Title.Substring(0, 24)}...";
+                    Console.WriteLine($"{tooLong,-40}{book.Author,-25}{available, -20}");
+                }
+                else if (book.Title.Length > 25 && available == "Checked Out")
+                {
+                    tooLong = $"{book.Title.Substring(0, 24)}...";
+                    Console.WriteLine($"{tooLong,-40}{book.Author,-25}{available, -20}{book.DueDate, -20}");
+                }
+                else if (available == "Checked Out")
+                {
+                    Console.WriteLine($"{book.Title,-40}{book.Author,-25}{available, -20}{book.DueDate, -20}");
+                }
+                else
+                {
+                    Console.WriteLine($"{book.Title,-40}{book.Author,-25}{available, -20}");
+
+                }
+            }
+        }
+        //Method takes in an object Book, Checks it out, and applies a due date two weeks away
+        public static void CheckoutBook(Book book)
+        {
+            book.Status = 1;
+            book.DueDate = DateTime.Now.AddDays(14).ToString("MM/dd/yyyy");
 
         }
+        //Method to return a book to the library
+        public static void ReturnBook(Book book)
+        {
+            book.Status = 0;
+            book.DueDate = null;
 
+        }
+        //Method that lets a user add a book to the library
         public static void AddBook() 
         {
             Console.WriteLine("Would you like to donate a book? (Yes or No)");
@@ -236,7 +229,7 @@ namespace MidTermLibrary
             }
             else if(reply == "no" || reply == "n") 
             {
-                Console.WriteLine("Scruffy Nerf Herder");
+                
             }
 
             BookToTxtFile(BookList);

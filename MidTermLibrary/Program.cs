@@ -10,16 +10,8 @@ namespace MidTermLibrary
     {
         static void Main(string[] args)
         {
-            //joseph was here last
-
-            //gil was totes here and did a lot to the code
-
-            //Gigi lives!
-
-            //Randy was here first
-            
+            //Start of Program
             Menu.StartMenu();
-            
         }
     }
 }
